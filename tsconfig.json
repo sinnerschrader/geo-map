@@ -16,7 +16,8 @@
     "pretty": true,
     "sourceMap": true,
     "declaration": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "stripInternal": true
   },
   "include": [
     "./src/**/*.ts",
