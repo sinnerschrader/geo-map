@@ -10,6 +10,10 @@ import { GeoMapPlacesService } from './geo-map-places-service';
 
 export class GeoMap {
   public readonly provider: Types.GeoMapProvider;
+
+  /**
+   * @internal
+   */
   private implementation: Types.GeoMapImplementation;
 
   public static create(init: {
