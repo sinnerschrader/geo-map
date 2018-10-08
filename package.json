@@ -5,14 +5,19 @@
   "files": [
     "index.js",
     "index.d.ts",
-    "lib"
+    "lib",
+    "esm"
   ],
+  "main": "index.js",
+  "module": "esm/index.js",
   "engines": {
     "node": ">=6.0.0"
   },
   "scripts": {
     "clean": "rimraf lib",
-    "build": "tsc",
+    "build": "npm run build:commonjs && npm run build:esm",
+    "build:commonjs": "tsc --project .",
+    "build:esm": "tsc --project . --outdir esm --module esnext",
     "test": "jest -c jest.unit.js",
     "test:integration": "jest -c jest.integration.js",
     "lint": "tslint --project ."
