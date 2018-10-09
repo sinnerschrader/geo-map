@@ -6,6 +6,7 @@ export * from './util';
 export * from './ensure-element';
 
 export * from './create-google-map-implementation';
+export * from './create-google-places-implementation';
 export * from './create-google-map';
 export * from './create-h-mock';
 

@@ -28,7 +28,18 @@ export class GeoMapPlacesServiceGoogle
   // todo: any
   public async search(needle: string): Promise<any> {
     return new Promise(resolve => {
-      resolve();
+      const container = document.createElement('div');
+      const service = new this.api.places.PlacesService(container);
+      service.textSearch(
+        {
+          query: needle
+        },
+        (results, status) => {
+          console.log('status', status);
+          console.log('results', results);
+          resolve();
+        }
+      );
     });
   }
 }
