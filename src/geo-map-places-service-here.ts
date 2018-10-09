@@ -37,8 +37,6 @@ export class GeoMapPlacesServiceHere
 
   // todo: any
   public async search(needle: string): Promise<any> {
-    return new Promise(resolve => {
-      resolve();
-    });
+    throw new Error('Unimplemented');
   }
 }
