@@ -70,7 +70,6 @@
   "dependencies": {
     "mobx": "4.3.1",
     "query-string": "^6.1.0",
-    "ts-enum-util": "^3.1.0",
     "tslib": "1.9.0",
     "uuid": "^3.3.2"
   },
