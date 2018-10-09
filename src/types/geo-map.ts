@@ -382,6 +382,8 @@ export interface GeoMapCodingServiceImplementation {
 
 export interface GeoMapPlacesServiceImplementation {
   get(id: string): Promise<Types.Result<GeoPlace>>;
+  // todo: any
+  search(needle: string): Promise<any>;
 }
 
 export interface GeoPlace {

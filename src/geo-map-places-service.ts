@@ -57,4 +57,9 @@ export class GeoMapPlacesService {
   public async get(id: string): Promise<Types.Result<Types.GeoPlace>> {
     return this.implementation.get(id);
   }
+
+  // todo: any
+  public async search(needle: string): Promise<any> {
+    return this.implementation.search(needle);
+  }
 }

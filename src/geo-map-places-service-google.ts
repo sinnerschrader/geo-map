@@ -24,4 +24,11 @@ export class GeoMapPlacesServiceGoogle
       });
     });
   }
+
+  // todo: any
+  public async search(needle: string): Promise<any> {
+    return new Promise(resolve => {
+      resolve();
+    });
+  }
 }
