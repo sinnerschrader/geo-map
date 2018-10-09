@@ -87,5 +87,22 @@
   },
   "prettier": {
     "singleQuote": true
+  },
+  "renovate": {
+    "extends": [
+      "config:base"
+    ],
+    "semanticPrefix": "chore:",
+    "devDependencies": {
+      "automerge": true
+    },
+    "packageRules": [
+      {
+        "packagePatterns": [
+          "@types/"
+        ],
+        "automerge": true
+      }
+    ]
   }
 }
