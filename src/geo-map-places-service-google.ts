@@ -53,6 +53,15 @@ export class GeoMapPlacesServiceGoogle
               type: Types.ResultType.Success,
               payload: results.map(result => this.convertResult(result))
             });
+          } else if (
+            // empty result cases
+            status === this.api.places.PlacesServiceStatus.ZERO_RESULTS ||
+            status === this.api.places.PlacesServiceStatus.NOT_FOUND
+          ) {
+            return resolve({
+              type: Types.ResultType.Success,
+              payload: []
+            });
           }
           return resolve({
             type: Types.ResultType.Failure,
