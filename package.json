@@ -14,7 +14,7 @@
     "node": ">=6.0.0"
   },
   "scripts": {
-    "clean": "rimraf lib",
+    "clean": "rimraf lib esm",
     "build": "npm run build:commonjs && npm run build:esm",
     "build:commonjs": "tsc --project .",
     "build:esm": "tsc --project . --outdir esm --module esnext",
