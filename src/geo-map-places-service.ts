@@ -10,14 +10,12 @@ export type GeoMapPlacesServiceCreateInit =
 export interface GeoMapPlacesServiceInitGoogle {
   api: Types.GoogleApi;
   type: Types.GeoMapProvider.Google;
-  map: GeoMap;
 }
 
 export interface GeoMapPlacesServiceInitHere {
   api: Types.HereApi;
   platform: H.service.Platform;
   type: Types.GeoMapProvider.Here;
-  map: GeoMap;
 }
 
 export interface GeoMapPlacesServiceInit {
@@ -48,8 +46,7 @@ export class GeoMapPlacesService {
     return new GeoMapPlacesService({
       type: init.type,
       implementation: GeoMapPlacesServiceGoogle.create({
-        api: googleApi,
-        map: init.map
+        api: googleApi
       })
     });
   }
@@ -65,8 +62,10 @@ export class GeoMapPlacesService {
   }
 
   public async search(
-    needle: string
+    needle: string,
+    center: Types.GeoPoint,
+    radius: number
   ): Promise<Types.Result<Types.GeoMapPlace[]>> {
-    return this.implementation.search(needle);
+    return this.implementation.search(needle, center, radius);
   }
 }

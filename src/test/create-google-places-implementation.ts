@@ -51,8 +51,7 @@ export async function createGoogleMapPlacesImplementation(opts?: {
       window,
       el,
       map: GeoMapPlacesServiceGoogle.create({
-        api: map.api,
-        map: GeoMap.from(map)
+        api: map.api
       })
     };
   } catch (err) {

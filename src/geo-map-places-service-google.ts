@@ -4,19 +4,16 @@ import { ResultType } from './types';
 
 export class GeoMapPlacesServiceGoogle
   implements Types.GeoMapPlacesServiceImplementation {
-  private api: Types.GoogleApi;
-  private map: GeoMap;
+  private readonly api: Types.GoogleApi;
 
   public static create(init: {
     api: Types.GoogleApi;
-    map: GeoMap;
   }): GeoMapPlacesServiceGoogle {
     return new GeoMapPlacesServiceGoogle(init);
   }
 
-  private constructor(init: { api: Types.GoogleApi; map: GeoMap }) {
+  private constructor(init: { api: Types.GoogleApi }) {
     this.api = init.api;
-    this.map = init.map;
   }
 
   public async get(
@@ -33,7 +30,9 @@ export class GeoMapPlacesServiceGoogle
   }
 
   public async search(
-    needle: string
+    needle: string,
+    center: Types.GeoPoint,
+    radius: number
   ): Promise<Types.Result<Types.GeoMapPlace[]>> {
     const container = document.createElement('div');
     const service = new this.api.places.PlacesService(container);
@@ -42,8 +41,8 @@ export class GeoMapPlacesServiceGoogle
       query: needle,
       fields: ['formatted_address', 'name', 'place_id', 'geometry'],
       locationBias: {
-        center: await this.map.getCenter(),
-        radius: 50000
+        center,
+        radius
       }
     };
 

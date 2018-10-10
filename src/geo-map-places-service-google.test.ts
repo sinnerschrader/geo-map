@@ -8,5 +8,13 @@ test('GOOGLE map search result', async () => {
     mount: { center: Test.Constants.S2_HAM, type: Types.GeoMapType.Hybrid }
   });
 
-  expect(await googlePlaces.map.search('sinnerschrader')).toHaveLength(2);
+  const result = await googlePlaces.map.search(
+    'sinnerschrader',
+    Test.Constants.S2_HAM,
+    50000
+  );
+  expect(result.type).toBe(Types.ResultType.Success);
+
+  const payload = (result as Types.SuccessResult<Types.GeoMapPlace[]>).payload;
+  expect(payload).toHaveLength(2);
 });
