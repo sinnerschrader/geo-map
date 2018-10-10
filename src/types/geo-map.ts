@@ -403,12 +403,12 @@ export interface GeoMapPlaceDetails {
 }
 
 export interface GeoMapPlace {
-  provider: Types.GeoMapProvider;
-  name: string;
-  id: string;
-  formattedAddress: string;
-  location: {
-    lat: number;
-    lng: number;
+  readonly provider: Types.GeoMapProvider;
+  readonly name: string;
+  readonly id: string;
+  readonly formattedAddress: string;
+  readonly location: {
+    readonly lat: number;
+    readonly lng: number;
   };
 }
