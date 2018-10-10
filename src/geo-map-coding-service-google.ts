@@ -17,8 +17,8 @@ export class GeoMapCodingServiceGoogle
 
   public async reverse(
     location: Types.GeoPoint
-  ): Promise<Types.Result<Types.GeoPlace[]>> {
-    return new Promise<Types.Result<Types.GeoPlace[]>>(resolve => {
+  ): Promise<Types.Result<Types.GeoMapPlaceDetails[]>> {
+    return new Promise<Types.Result<Types.GeoMapPlaceDetails[]>>(resolve => {
       const coder = new this.api.Geocoder();
 
       coder.geocode({ location }, (results, status) => {
@@ -34,7 +34,9 @@ export class GeoMapCodingServiceGoogle
   }
 }
 
-function googleToGeoPlace(result: google.maps.GeocoderResult): Types.GeoPlace {
+function googleToGeoPlace(
+  result: google.maps.GeocoderResult
+): Types.GeoMapPlaceDetails {
   const byType = (type: AddressComponentType) =>
     getAddressComponentByType(result, type);
 

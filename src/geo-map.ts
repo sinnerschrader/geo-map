@@ -164,7 +164,7 @@ export class GeoMap {
 
   public async reverseGeocode(
     point: Types.GeoPoint
-  ): Promise<Types.Result<Types.GeoPlace[]>> {
+  ): Promise<Types.Result<Types.GeoMapPlaceDetails[]>> {
     await this.phase(Types.GeoMapPhase.Loaded);
 
     // TODO: Move out of here when splitting GeoMap into Geo -> Map, Geo -> Code, Geo -> ...
@@ -186,7 +186,9 @@ export class GeoMap {
     return googleService.reverse(point);
   }
 
-  public async getPlace(id: string): Promise<Types.Result<Types.GeoPlace>> {
+  public async getPlace(
+    id: string
+  ): Promise<Types.Result<Types.GeoMapPlaceDetails>> {
     await this.phase(Types.GeoMapPhase.Loaded);
 
     // TODO: Move out of here when splitting GeoMap into Geo -> Map, Geo -> Code, Geo -> ...

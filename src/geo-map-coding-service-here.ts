@@ -22,8 +22,8 @@ export class GeoMapCodingServiceHere
 
   public async reverse(
     location: Types.GeoPoint
-  ): Promise<Types.Result<Types.GeoPlace[]>> {
-    return new Promise<Types.Result<Types.GeoPlace[]>>(resolve => {
+  ): Promise<Types.Result<Types.GeoMapPlaceDetails[]>> {
+    return new Promise<Types.Result<Types.GeoMapPlaceDetails[]>>(resolve => {
       const service = this.platform.getGeocodingService();
 
       service.reverseGeocode(
@@ -63,7 +63,9 @@ export class GeoMapCodingServiceHere
   }
 }
 
-function herePlaceToGeoPlace(herePlace: HereTypes.Place): Types.GeoPlace {
+function herePlaceToGeoPlace(
+  herePlace: HereTypes.Place
+): Types.GeoMapPlaceDetails {
   return {
     provider: Types.GeoMapProvider.Here,
     id: herePlace.location.mapReference.addressId,

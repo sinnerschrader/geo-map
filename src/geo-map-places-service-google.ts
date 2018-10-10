@@ -1,6 +1,6 @@
 import * as Types from './types';
 import { GeoMap } from './geo-map';
-import { GeoMapPlacesResult } from './geo-map-places-service';
+import { ResultType } from './types';
 
 export class GeoMapPlacesServiceGoogle
   implements Types.GeoMapPlacesServiceImplementation {
@@ -19,8 +19,10 @@ export class GeoMapPlacesServiceGoogle
     this.map = init.map;
   }
 
-  public async get(placeId: string): Promise<Types.Result<Types.GeoPlace>> {
-    return new Promise<Types.Result<Types.GeoPlace>>(resolve => {
+  public async get(
+    placeId: string
+  ): Promise<Types.Result<Types.GeoMapPlaceDetails>> {
+    return new Promise<Types.Result<Types.GeoMapPlaceDetails>>(resolve => {
       const container = document.createElement('div');
       const service = new this.api.places.PlacesService(container);
 
@@ -32,7 +34,7 @@ export class GeoMapPlacesServiceGoogle
 
   public async search(
     needle: string
-  ): Promise<Types.Result<GeoMapPlacesResult[]>> {
+  ): Promise<Types.Result<Types.GeoMapPlace[]>> {
     const container = document.createElement('div');
     const service = new this.api.places.PlacesService(container);
 
@@ -45,7 +47,7 @@ export class GeoMapPlacesServiceGoogle
       }
     };
 
-    return new Promise<Types.Result<GeoMapPlacesResult[]>>(resolve => {
+    return new Promise<Types.Result<Types.GeoMapPlace[]>>(resolve => {
       try {
         service.findPlaceFromQuery(request, (results, status) => {
           if (status === this.api.places.PlacesServiceStatus.OK) {
@@ -54,7 +56,6 @@ export class GeoMapPlacesServiceGoogle
               payload: results.map(result => this.convertResult(result))
             });
           } else if (
-            // empty result cases
             status === this.api.places.PlacesServiceStatus.ZERO_RESULTS ||
             status === this.api.places.PlacesServiceStatus.NOT_FOUND
           ) {
@@ -79,10 +80,12 @@ export class GeoMapPlacesServiceGoogle
 
   private convertResult(
     result: google.maps.places.PlaceResult
-  ): GeoMapPlacesResult {
+  ): Types.GeoMapPlace {
     return {
+      provider: Types.GeoMapProvider.Google,
+      id: result.place_id,
       name: result.name,
-      placeId: result.place_id,
+      formattedAddress: result.formatted_address,
       location: result.geometry.location.toJSON()
     };
   }

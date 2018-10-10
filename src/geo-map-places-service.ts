@@ -25,15 +25,6 @@ export interface GeoMapPlacesServiceInit {
   implementation: Types.GeoMapPlacesServiceImplementation;
 }
 
-export interface GeoMapPlacesResult {
-  name: string;
-  placeId: string;
-  location: {
-    lat: number;
-    lng: number;
-  };
-}
-
 export class GeoMapPlacesService {
   private implementation: Types.GeoMapPlacesServiceImplementation;
 
@@ -67,11 +58,15 @@ export class GeoMapPlacesService {
     this.implementation = init.implementation;
   }
 
-  public async get(id: string): Promise<Types.Result<Types.GeoPlace>> {
+  public async get(
+    id: string
+  ): Promise<Types.Result<Types.GeoMapPlaceDetails>> {
     return this.implementation.get(id);
   }
 
-  public async search(needle: string): Promise<GeoMapPlacesResult[]> {
+  public async search(
+    needle: string
+  ): Promise<Types.Result<Types.GeoMapPlace[]>> {
     return this.implementation.search(needle);
   }
 }

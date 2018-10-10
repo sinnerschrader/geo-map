@@ -54,7 +54,7 @@ export class GeoMapCodingService {
 
   public async reverse(
     location: Types.GeoPoint
-  ): Promise<Types.Result<Types.GeoPlace[]>> {
+  ): Promise<Types.Result<Types.GeoMapPlaceDetails[]>> {
     return this.implementation.reverse(location);
   }
 }

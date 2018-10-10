@@ -19,8 +19,10 @@ export class GeoMapPlacesServiceHere
     this.platform = init.platform;
   }
 
-  public async get(id: string): Promise<Types.Result<Types.GeoPlace>> {
-    return new Promise<Types.Result<Types.GeoPlace>>(resolve => {
+  public async get(
+    id: string
+  ): Promise<Types.Result<Types.GeoMapPlaceDetails>> {
+    return new Promise<Types.Result<Types.GeoMapPlaceDetails>>(resolve => {
       const service = this.platform.getPlacesService();
 
       // tslint:disable-line:no-any

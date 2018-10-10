@@ -377,16 +377,15 @@ export type GeoEventHandler<T extends GeoEventPayload | void = any> = (
 ) => void;
 
 export interface GeoMapCodingServiceImplementation {
-  reverse(point: GeoPoint): Promise<Types.Result<GeoPlace[]>>;
+  reverse(point: GeoPoint): Promise<Types.Result<GeoMapPlaceDetails[]>>;
 }
 
 export interface GeoMapPlacesServiceImplementation {
-  get(id: string): Promise<Types.Result<GeoPlace>>;
-  // todo: any
-  search(needle: string): Promise<any>;
+  get(id: string): Promise<Types.Result<GeoMapPlaceDetails>>;
+  search(needle: string): Promise<Types.Result<GeoMapPlace[]>>;
 }
 
-export interface GeoPlace {
+export interface GeoMapPlaceDetails {
   provider: Types.GeoMapProvider;
   id: string;
   formattedAddress: string;
@@ -396,5 +395,16 @@ export interface GeoPlace {
     locality: string | undefined;
     route: string | undefined;
     streetNumber: string | undefined;
+  };
+}
+
+export interface GeoMapPlace {
+  provider: Types.GeoMapProvider;
+  name: string;
+  id: string;
+  formattedAddress: string;
+  location: {
+    lat: number;
+    lng: number;
   };
 }
