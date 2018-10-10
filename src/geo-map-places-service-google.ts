@@ -1,17 +1,22 @@
 import * as Types from './types';
+import { GeoMap } from './geo-map';
+import { GeoMapPlacesResult } from './geo-map-places-service';
 
 export class GeoMapPlacesServiceGoogle
   implements Types.GeoMapPlacesServiceImplementation {
   private api: Types.GoogleApi;
+  private map: GeoMap;
 
   public static create(init: {
     api: Types.GoogleApi;
+    map: GeoMap;
   }): GeoMapPlacesServiceGoogle {
     return new GeoMapPlacesServiceGoogle(init);
   }
 
-  private constructor(init: { api: Types.GoogleApi }) {
+  private constructor(init: { api: Types.GoogleApi; map: GeoMap }) {
     this.api = init.api;
+    this.map = init.map;
   }
 
   public async get(placeId: string): Promise<Types.Result<Types.GeoPlace>> {
@@ -25,21 +30,51 @@ export class GeoMapPlacesServiceGoogle
     });
   }
 
-  // todo: any
-  public async search(needle: string): Promise<any> {
-    return new Promise(resolve => {
-      const container = document.createElement('div');
-      const service = new this.api.places.PlacesService(container);
-      service.textSearch(
-        {
-          query: needle
-        },
-        (results, status) => {
-          console.log('status', status);
-          console.log('results', results);
-          resolve();
-        }
-      );
+  public async search(
+    needle: string
+  ): Promise<Types.Result<GeoMapPlacesResult[]>> {
+    const container = document.createElement('div');
+    const service = new this.api.places.PlacesService(container);
+
+    const request: google.maps.places.FindPlaceFromQueryRequest = {
+      query: needle,
+      fields: ['formatted_address', 'name', 'place_id', 'geometry'],
+      locationBias: {
+        center: await this.map.getCenter(),
+        radius: 50000
+      }
+    };
+
+    return new Promise<Types.Result<GeoMapPlacesResult[]>>(resolve => {
+      try {
+        service.findPlaceFromQuery(request, (results, status) => {
+          if (status === this.api.places.PlacesServiceStatus.OK) {
+            return resolve({
+              type: Types.ResultType.Success,
+              payload: results.map(result => this.convertResult(result))
+            });
+          }
+          return resolve({
+            type: Types.ResultType.Failure,
+            error: new Error('Query status ' + status)
+          });
+        });
+      } catch (error) {
+        return resolve({
+          type: Types.ResultType.Failure,
+          error
+        });
+      }
     });
+  }
+
+  private convertResult(
+    result: google.maps.places.PlaceResult
+  ): GeoMapPlacesResult {
+    return {
+      name: result.name,
+      placeId: result.place_id,
+      location: result.geometry.location.toJSON()
+    };
   }
 }

@@ -6,6 +6,7 @@ import { GeoMapPlacesServiceGoogle } from '../geo-map-places-service-google';
 import * as Result from '../result';
 import * as Types from '../types';
 import { GeoMapGoogle } from '../geo-map-google';
+import { GeoMap } from '../geo-map';
 
 export async function createGoogleMapPlacesImplementation(opts?: {
   config?: Partial<Types.LoadGoogleMapConfig>;
@@ -49,7 +50,10 @@ export async function createGoogleMapPlacesImplementation(opts?: {
     return {
       window,
       el,
-      map: GeoMapPlacesServiceGoogle.create({ api: map.api })
+      map: GeoMapPlacesServiceGoogle.create({
+        api: map.api,
+        map: GeoMap.from(map)
+      })
     };
   } catch (err) {
     console.error(err);
