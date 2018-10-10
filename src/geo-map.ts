@@ -194,7 +194,8 @@ export class GeoMap {
       const hereService = GeoMapPlacesService.create({
         type: this.provider as Types.GeoMapProvider.Here,
         api: (this.implementation as GeoMapHere).api,
-        platform: (this.implementation as GeoMapHere).platform
+        platform: (this.implementation as GeoMapHere).platform,
+        map: this
       });
 
       return hereService.get(id);
@@ -202,7 +203,8 @@ export class GeoMap {
 
     const googleService = GeoMapPlacesService.create({
       type: this.provider as Types.GeoMapProvider.Google,
-      api: (this.implementation as GeoMapGoogle).api
+      api: (this.implementation as GeoMapGoogle).api,
+      map: this
     });
 
     return googleService.get(id);
