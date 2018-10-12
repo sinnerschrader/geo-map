@@ -228,4 +228,18 @@ export class GeoMap {
     const service = await this.getPlacesService();
     return service.search(needle, center, radius);
   }
+
+  /**
+   * @param from
+   * @param to
+   * @param radius
+   */
+  public async distanceBetween(
+    from: Types.GeoPoint,
+    to: Types.GeoPoint,
+    radius?: number
+  ): Promise<number> {
+    const service = await this.getPlacesService();
+    return service.distanceBetween(from, to, radius);
+  }
 }

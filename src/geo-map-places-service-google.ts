@@ -85,4 +85,16 @@ export class GeoMapPlacesServiceGoogle
       location: result.geometry.location.toJSON()
     };
   }
+
+  public distanceBetween(
+    from: Types.GeoPoint,
+    to: Types.GeoPoint,
+    radius?: number
+  ): number {
+    return this.api.geometry.spherical.computeDistanceBetween(
+      new this.api.LatLng(from.lat, from.lng),
+      new this.api.LatLng(to.lat, to.lng),
+      radius
+    );
+  }
 }

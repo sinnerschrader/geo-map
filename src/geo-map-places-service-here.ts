@@ -4,6 +4,7 @@ import * as Types from './types';
 export class GeoMapPlacesServiceHere
   implements Types.GeoMapPlacesServiceImplementation {
   private platform: H.service.Platform;
+  private api: Types.HereApi;
 
   public static create(init: {
     api: Types.HereApi;
@@ -17,6 +18,7 @@ export class GeoMapPlacesServiceHere
     platform: H.service.Platform;
   }) {
     this.platform = init.platform;
+    this.api = init.api;
   }
 
   public async get(
@@ -37,8 +39,21 @@ export class GeoMapPlacesServiceHere
     });
   }
 
-  // todo: any
-  public async search(needle: string): Promise<any> {
-    throw new Error('Unimplemented');
+  public async search(
+    needle: string,
+    center: Types.GeoPoint,
+    radius: number
+  ): Promise<Types.Result<Types.GeoMapPlace[]>> {
+    throw new Error('Method not implemented.');
+  }
+
+  public distanceBetween(
+    from: Types.GeoPoint,
+    to: Types.GeoPoint,
+    radius?: number
+  ): number {
+    return new this.api.geo.Point(from.lat, from.lng).distance(
+      new this.api.geo.Point(to.lat, to.lng)
+    );
   }
 }

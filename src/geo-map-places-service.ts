@@ -68,4 +68,12 @@ export class GeoMapPlacesService {
   ): Promise<Types.Result<Types.GeoMapPlace[]>> {
     return this.implementation.search(needle, center, radius);
   }
+
+  public distanceBetween(
+    from: Types.GeoPoint,
+    to: Types.GeoPoint,
+    radius?: number
+  ): number {
+    return this.implementation.distanceBetween(from, to, radius);
+  }
 }

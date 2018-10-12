@@ -382,11 +382,18 @@ export interface GeoMapCodingServiceImplementation {
 
 export interface GeoMapPlacesServiceImplementation {
   get(id: string): Promise<Types.Result<GeoMapPlaceDetails>>;
+
   search(
     needle: string,
     center: Types.GeoPoint,
     radius: number
   ): Promise<Types.Result<GeoMapPlace[]>>;
+
+  distanceBetween(
+    from: Types.GeoPoint,
+    to: Types.GeoPoint,
+    radius?: number
+  ): number;
 }
 
 export interface GeoMapPlaceDetails {
