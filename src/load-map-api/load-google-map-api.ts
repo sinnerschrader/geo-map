@@ -23,7 +23,7 @@ export function loadGoogleMapApi(
       callback: GOOGLE_MAP_CALLBACK_ID,
       language: config.language || 'en',
       region: config.region || null,
-      libraries: 'places'
+      libraries: 'places,geometry'
     };
 
     if (
