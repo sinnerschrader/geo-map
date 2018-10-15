@@ -397,15 +397,16 @@ export interface GeoMapPlacesServiceImplementation {
 }
 
 export interface GeoMapPlaceDetails {
-  provider: Types.GeoMapProvider;
-  id: string;
-  formattedAddress: string;
-  address: {
-    country: string | undefined;
-    postalCode: string | undefined;
-    locality: string | undefined;
-    route: string | undefined;
-    streetNumber: string | undefined;
+  readonly provider: Types.GeoMapProvider;
+  readonly id: string;
+  readonly name?: string;
+  readonly formattedAddress: string;
+  readonly address: {
+    readonly country?: string;
+    readonly postalCode?: string;
+    readonly locality?: string;
+    readonly route?: string;
+    readonly streetNumber?: string;
   };
 }
 

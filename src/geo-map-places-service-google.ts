@@ -24,9 +24,38 @@ export class GeoMapPlacesServiceGoogle
       const service = new this.api.places.PlacesService(container);
 
       service.getDetails({ placeId }, result => {
-        // TODO: transform to facade result
+        resolve({
+          type: Types.ResultType.Success,
+          payload: {
+            provider: Types.GeoMapProvider.Google,
+            id: result.place_id,
+            name: result.name,
+            formattedAddress: result.formatted_address,
+            address: {
+              country: this.getAddressComponentPart('country', result),
+              postalCode: this.getAddressComponentPart('postal_code', result),
+              locality: this.getAddressComponentPart('locality', result),
+              route: this.getAddressComponentPart('route', result),
+              streetNumber: this.getAddressComponentPart(
+                'street_number',
+                result
+              )
+            }
+          }
+        });
       });
     });
+  }
+
+  private getAddressComponentPart(
+    name: string,
+    result: google.maps.places.PlaceResult
+  ): string | undefined {
+    return (
+      result.address_components.find(
+        component => component.types.indexOf(name) > -1
+      ) || { long_name: undefined }
+    ).long_name;
   }
 
   public async search(
