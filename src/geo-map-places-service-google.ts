@@ -1,6 +1,4 @@
 import * as Types from './types';
-import { GeoMap } from './geo-map';
-import { ResultType } from './types';
 
 export class GeoMapPlacesServiceGoogle
   implements Types.GeoMapPlacesServiceImplementation {
