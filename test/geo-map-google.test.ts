@@ -1,18 +1,18 @@
-import * as Fs from "fs";
-import * as TestEntry from "../src/test/integration-tests";
-import * as Types from "../src/types";
-import * as Util from "../src/test/util";
-import * as Constants from "../src/test/constants";
+import * as Fs from 'fs';
+import * as TestEntry from '../src/test/integration-tests';
+import * as Types from '../src/types';
+import * as Util from '../src/test/util';
+import * as Constants from '../src/test/constants';
 
 beforeAll(async () => {
-  if (!Fs.existsSync("./screenshots")) {
-    Fs.mkdirSync("./screenshots");
+  if (!Fs.existsSync('./screenshots')) {
+    Fs.mkdirSync('./screenshots');
   }
-  page.on("console", e => {
+  page.on('console', e => {
     if (e.text().startsWith('[HMR]') || e.text().startsWith('[WDS]')) {
       return;
     }
-    console.log(e)
+    console.log(e);
   });
 });
 
@@ -20,16 +20,16 @@ beforeEach(async () => {
   await page.setViewport({ width: 800, height: 600 });
 });
 
-test("GeoMap with Google", async () => {
+test('GeoMap with Google', async () => {
   await page.goto(`http://localhost:1338/?integration=true`);
   await page.evaluate(() => TestEntry.Tests.basicGoogle());
 
   // Check if the Google Maps copyright notice is found
-  await page.screenshot({ path: "./screenshots/basic-google.png" });
+  await page.screenshot({ path: './screenshots/basic-google.png' });
   await expect(page).toMatch(/Map data ©\d{4}/);
 });
 
-test("Zoom with Google", async () => {
+test('Zoom with Google', async () => {
   await page.goto(`http://localhost:1338/?integration=true`);
 
   const input = 1;
@@ -38,11 +38,11 @@ test("Zoom with Google", async () => {
     input
   );
 
-  await page.screenshot({ path: "./screenshots/zoom-google.png" });
+  await page.screenshot({ path: './screenshots/zoom-google.png' });
   await expect(actual).toBe(1);
 });
 
-test("Type with Google", async () => {
+test('Type with Google', async () => {
   await page.goto(`http://localhost:1338/?integration=true`);
 
   const input = Types.GeoMapType.Hybrid;
@@ -51,13 +51,15 @@ test("Type with Google", async () => {
     input
   );
 
-  await page.screenshot({ path: "./screenshots/type-google.png" });
+  await page.screenshot({ path: './screenshots/type-google.png' });
   await expect(actual).toBe(input);
 });
 
-test("Marker with Google has red marker at center", async () => {
+test('Marker with Google has red marker at center', async () => {
   if (process.env.CI) {
-    console.warn("Marker with Google has red marker at center disabled due to flakiness");
+    console.warn(
+      'Marker with Google has red marker at center disabled due to flakiness'
+    );
     return;
   }
 
@@ -65,7 +67,7 @@ test("Marker with Google has red marker at center", async () => {
   await page.evaluate(() => TestEntry.Tests.markerGoogle());
 
   const screenshot = await page.screenshot({
-    path: "./screenshots/marker-google.png"
+    path: './screenshots/marker-google.png'
   });
   const parsed = await Util.parsePng(screenshot);
   expect(parsed.getPixel(parsed.width / 2, parsed.height / 2)).toEqual([
@@ -76,7 +78,7 @@ test("Marker with Google has red marker at center", async () => {
   ]);
 });
 
-test("Viewport with Google has red marker at offset center", async () => {
+test('Viewport with Google has red marker at offset center', async () => {
   const offset = 300;
 
   await page.goto(`http://localhost:1338/?integration=true`);
@@ -87,7 +89,7 @@ test("Viewport with Google has red marker at offset center", async () => {
   );
 
   const screenshot = await page.screenshot({
-    path: "./screenshots/viewport-google.png"
+    path: './screenshots/viewport-google.png'
   });
   const parsed = await Util.parsePng(screenshot);
 
@@ -102,7 +104,7 @@ test("Viewport with Google has red marker at offset center", async () => {
   ).toEqual([255, 0, 0, 255]);
 });
 
-test("Traffic Layer with Google changes display", async () => {
+test('Traffic Layer with Google changes display', async () => {
   await page.goto(`http://localhost:1338/?integration=true`);
 
   await page.evaluate(
@@ -110,7 +112,7 @@ test("Traffic Layer with Google changes display", async () => {
     Types.GeoLayer.None
   );
   const before = await page.screenshot({
-    path: "./screenshots/layer-traffic-google-before.png"
+    path: './screenshots/layer-traffic-google-before.png'
   });
 
   await page.evaluate(
@@ -118,15 +120,15 @@ test("Traffic Layer with Google changes display", async () => {
     Types.GeoLayer.Traffic
   );
   const after = await page.screenshot({
-    path: "./screenshots/layer-traffic-google-after.png"
+    path: './screenshots/layer-traffic-google-after.png'
   });
 
   expect(before).not.toEqual(after);
 });
 
-test("Click events with Google trigger call on event handler", async () => {
+test('Click events with Google trigger call on event handler', async () => {
   await page.goto(`http://localhost:1338/?integration=true`);
-  await page.evaluate(() => TestEntry.Tests.eventGoogle("click-id"));
+  await page.evaluate(() => TestEntry.Tests.eventGoogle('click-id'));
   await page.click('[data-map="Google"]');
   await page.waitForSelector('[data-dump="data-dump"]');
 
@@ -140,7 +142,7 @@ test("Click events with Google trigger call on event handler", async () => {
   expect(data.clicked).toBe(1);
 });
 
-test("Click events with Google carry appropriate lat/lng data", async () => {
+test('Click events with Google carry appropriate lat/lng data', async () => {
   const center = { lat: 10, lng: 7.5 };
 
   await page.goto(`http://localhost:1338/?integration=true`);
@@ -163,7 +165,7 @@ test("Click events with Google carry appropriate lat/lng data", async () => {
   expect(position.lng).toBeCloseTo(center.lng);
 });
 
-test("Geocoding works as expected", async () => {
+test('Geocoding works as expected', async () => {
   await page.goto(`http://localhost:1338/?integration=true`);
   await page.evaluate(
     input => TestEntry.Tests.geocodeGoogle(input),
@@ -183,14 +185,33 @@ test("Geocoding works as expected", async () => {
   expect(data).toEqual(
     expect.objectContaining({
       provider: Types.GeoMapProvider.Google,
-      formattedAddress: "Boxhagener Str. 76, 10245 Berlin, Germany",
+      formattedAddress: 'Boxhagener Str. 76, 10245 Berlin, Germany',
       address: {
-        country: "Germany",
-        postalCode: "10245",
-        locality: "Berlin",
-        route: "Boxhagener Straße",
-        streetNumber: "76"
+        country: 'Germany',
+        postalCode: '10245',
+        locality: 'Berlin',
+        route: 'Boxhagener Straße',
+        streetNumber: '76'
       }
+    })
+  );
+});
+
+test('Search works as expected', async () => {
+  await page.goto(`http://localhost:1338/?integration=true`);
+  await page.evaluate(() => TestEntry.Tests.searchGoogle());
+
+  const data = JSON.parse(
+    String(
+      await page.evaluate(
+        () => document.querySelector('[data-dump="data-dump"]').textContent
+      )
+    )
+  );
+
+  expect(data).toContainEqual(
+    expect.objectContaining({
+      name: expect.stringContaining('Hamburg')
     })
   );
 });

@@ -15,7 +15,7 @@ const BOUNDS = {
 
 export const Tests = {
   basicHere: async () => {
-    return await createHereMap();
+    const hereMap = await createHereMap();
   },
 
   basicGoogle: async () => {
@@ -581,5 +581,25 @@ export const Tests = {
         Util.dump(result.payload[0]);
       }
     });
+  },
+
+  searchHere: async (term: string = 'Hamburg') => {
+    const center = Constants.S2_HAM;
+    const map = await createHereMap({}, { center, zoom: 15 });
+    const results = await map.search(term, center);
+
+    if (results.type === Types.ResultType.Success) {
+      Util.dump(results.payload);
+    }
+  },
+
+  searchGoogle: async (term: string = 'Hamburg') => {
+    const center = Constants.S2_HAM;
+    const map = await createGoogleMap({}, { center, zoom: 15 });
+    const results = await map.search(term, center);
+
+    if (results.type === Types.ResultType.Success) {
+      Util.dump(results.payload);
+    }
   }
 };

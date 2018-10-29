@@ -6,13 +6,12 @@ import { GeoMapPlacesServiceGoogle } from '../geo-map-places-service-google';
 import * as Result from '../result';
 import * as Types from '../types';
 import { GeoMapGoogle } from '../geo-map-google';
-import { GeoMap } from '../geo-map';
 
-export async function createGoogleMapPlacesImplementation(opts?: {
+export async function createGooglePlacesImplementation(opts?: {
   config?: Partial<Types.LoadGoogleMapConfig>;
   mount?: Types.GeoMapMountInit;
   mock?: boolean;
-}): Promise<Types.TestImplementation<GeoMapPlacesServiceGoogle>> {
+}): Promise<Types.TestServiceImplementation<GeoMapPlacesServiceGoogle>> {
   try {
     const window = createWindow();
 
@@ -50,7 +49,7 @@ export async function createGoogleMapPlacesImplementation(opts?: {
     return {
       window,
       el,
-      map: GeoMapPlacesServiceGoogle.create({
+      service: GeoMapPlacesServiceGoogle.create({
         api: map.api
       })
     };

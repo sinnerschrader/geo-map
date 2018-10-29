@@ -27,7 +27,6 @@ export class GeoMapPlacesServiceHere
     return new Promise<Types.Result<Types.GeoMapPlaceDetails>>(resolve => {
       const service = this.platform.getPlacesService();
 
-      // tslint:disable-line:no-any
       service.request(
         ('places/lookup' as any) as H.service.PlacesService.EntryPoint,
         { id, source: 'pvid' },
@@ -39,12 +38,47 @@ export class GeoMapPlacesServiceHere
     });
   }
 
-  public async search(
+  public search(
     needle: string,
     center: Types.GeoPoint,
-    radius: number
+    radius?: number
   ): Promise<Types.Result<Types.GeoMapPlace[]>> {
-    throw new Error('Method not implemented.');
+    return new Promise((resolve, reject) => {
+      const service = this.platform.getPlacesService();
+
+      const point = [center.lat, center.lng].join(',');
+
+      const params =
+        typeof radius !== 'undefined'
+          ? { in: `${point};r=${radius}` }
+          : { at: point };
+
+      service.request(
+        this.api.service.PlacesService.EntryPoint.SEARCH,
+        { q: needle, ...params },
+        response => {
+          const { results } = response;
+
+          if (typeof results === 'undefined' || !Array.isArray(results.items)) {
+            resolve(Result.createSuccess([]));
+          }
+
+          const places = results.items.map(item => ({
+            provider: Types.GeoMapProvider.Here,
+            id: item.id,
+            name: item.title,
+            formattedAddress: item.vicinity,
+            location: {
+              lat: item.position[0],
+              lng: item.position[1]
+            }
+          }));
+
+          resolve(Result.createSuccess(places));
+        },
+        serviceError => resolve(Result.createFailure(serviceError))
+      );
+    });
   }
 
   public distanceBetween(

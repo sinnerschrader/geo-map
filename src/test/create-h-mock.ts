@@ -1,3 +1,5 @@
+import { GeoMapPlacesService } from '../geo-map-places-service';
+
 // tslint:disable:max-classes-per-file
 // tslint:disable:no-any
 

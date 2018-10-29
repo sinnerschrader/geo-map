@@ -10,7 +10,7 @@ export async function createGoogleMapImplementation(opts?: {
   config?: Partial<Types.LoadGoogleMapConfig>;
   mount?: Types.GeoMapMountInit;
   mock?: boolean;
-}): Promise<Types.TestImplementation<GeoMapGoogle>> {
+}): Promise<Types.TestMapImplementation<GeoMapGoogle>> {
   try {
     const window = createWindow();
 

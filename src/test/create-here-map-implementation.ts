@@ -8,7 +8,7 @@ import * as Types from '../types';
 export async function createHereMapImplementation(opts?: {
   config?: Partial<Types.LoadHereMapConfig>;
   mount?: Types.GeoMapMountInit;
-}): Promise<Types.TestImplementation<GeoMapHere>> {
+}): Promise<Types.TestMapImplementation<GeoMapHere>> {
   try {
     const window = createWindow();
 
