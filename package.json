@@ -58,7 +58,7 @@
     "jsdom-simulant": "1.1.2",
     "lint-staged": "8.0.4",
     "png.js": "0.2.1",
-    "prettier": "1.14.3",
+    "prettier": "1.15.1",
     "puppeteer": "1.9.0",
     "rimraf": "2.6.2",
     "standard-version": "4.4.0",
