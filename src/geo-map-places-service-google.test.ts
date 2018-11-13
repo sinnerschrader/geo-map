@@ -1,7 +1,9 @@
 import * as Test from './test';
 import * as Types from './types';
 
-test('Google map search result', async () => {
+// TODO: Check if we can reestablish support in JSDOM
+// currently fails with "The Google Maps JavaScript API does not support this browser".
+test.skip('Google map search result', async () => {
   const googlePlaces = await Test.createGooglePlacesImplementation({
     mock: false,
     mount: { center: Test.Constants.S2_HAM, type: Types.GeoMapType.Hybrid }
