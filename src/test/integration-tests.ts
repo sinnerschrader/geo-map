@@ -639,5 +639,24 @@ export const Tests = {
     if (details.type === Types.ResultType.Success) {
       Util.dump(details.payload);
     }
+  },
+
+  getAllWayDownFromReverseGeocode: async () => {
+    const center = Constants.S2_HAM;
+    const map = await createHereMap({}, { center, zoom: 15 });
+    const geocodeResult = await map.reverseGeocode(center);
+    if (
+      geocodeResult.type !== Types.ResultType.Success ||
+      geocodeResult.payload.length === 0
+    ) {
+      throw new Error('Expected success from reverse geocode');
+    }
+    const firstResult = geocodeResult.payload[0];
+
+    const placeResult = await map.getPlace(firstResult.id);
+    if (placeResult.type !== Types.ResultType.Success) {
+      throw new Error('Expected success from getPlace');
+    }
+    Util.dump(placeResult.payload);
   }
 };

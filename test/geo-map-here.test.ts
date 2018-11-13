@@ -200,7 +200,7 @@ test('Geocoding works as expected', async () => {
 
 test('Search works as expected', async () => {
   await page.goto(`http://localhost:1338/?integration=true`);
-  await page.evaluate(() => TestEntry.Tests.searchHere());
+  await page.evaluate(() => TestEntry.Tests.searchHere('SinnerSchrader'));
 
   const data = JSON.parse(
     String(
@@ -212,14 +212,14 @@ test('Search works as expected', async () => {
 
   expect(data).toContainEqual(
     expect.objectContaining({
-      name: expect.stringContaining('Hamburg')
+      name: expect.stringContaining('Sinnerschrader')
     })
   );
 });
 
-test('getPlace works as expected', async () => {
+test('getPlace with all details', async () => {
   await page.goto(`http://localhost:1338/?integration=true`);
-  await page.evaluate(() => TestEntry.Tests.getHere());
+  await page.evaluate(() => TestEntry.Tests.getAllWayDownFromReverseGeocode());
 
   const data = JSON.parse(
     String(
@@ -231,7 +231,7 @@ test('getPlace works as expected', async () => {
 
   expect(data).toEqual(
     expect.objectContaining({
-      name: expect.stringContaining('Hamburg')
+      name: expect.stringContaining('Sinnerschrader')
     })
   );
 });

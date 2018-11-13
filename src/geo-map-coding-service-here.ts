@@ -29,10 +29,12 @@ export class GeoMapCodingServiceHere
       service.reverseGeocode(
         {
           pos: `${location.lat},${location.lng},0`,
-          locationattributes: 'ar',
+          locationattributes:
+            'address,-mapView,additionalData,mapReference,adminIds',
           mode: 'retrieveAddresses',
           prox: `${location.lat},${location.lng},0`,
-          jsonattributes: '1'
+          jsonattributes: '1',
+          responseattributes: 'ps,mq,mt,mc,pr'
         },
         serviceResult => {
           if (!serviceResult.response) {
@@ -70,7 +72,7 @@ function herePlaceToGeoPlace(
 
   return {
     provider: Types.GeoMapProvider.Here,
-    id: herePlace.location.mapReference.addressId,
+    id: herePlace.location.locationId,
     formattedAddress: herePlace.location.address.label,
     address: {
       country: address.country,

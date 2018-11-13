@@ -10,7 +10,8 @@
     "declaration": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "stripInternal": true
+    "stripInternal": true,
+    "plugins": [{ "name": "typescript-tslint-plugin" }]
   },
   "include": ["./src/**/*.ts", "./typings/**/*.d.ts"],
   "exclude": ["./src/test", "./src/**/*.test.ts"]

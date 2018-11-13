@@ -58,7 +58,7 @@ test('Type with Google', async () => {
   await expect(actual).toBe(input);
 });
 
-test('Marker with Google has red marker at center', async () => {
+test.skip('Marker with Google has red marker at center', async () => {
   if (process.env.CI) {
     console.warn(
       'Marker with Google has red marker at center disabled due to flakiness'
