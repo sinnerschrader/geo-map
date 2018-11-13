@@ -8,6 +8,9 @@ beforeAll(async () => {
   if (!Fs.existsSync('./screenshots')) {
     Fs.mkdirSync('./screenshots');
   }
+
+  page.setUserAgent(Constants.USER_AGENT);
+
   page.on('console', e => {
     if (e.text().startsWith('[HMR]') || e.text().startsWith('[WDS]')) {
       return;

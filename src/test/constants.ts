@@ -27,3 +27,6 @@ export const FAUX_SIDEBAR = `
   bottom: 0;
   background: red;
 `;
+
+export const USER_AGENT =
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36';
