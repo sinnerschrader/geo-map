@@ -380,6 +380,24 @@ export interface GeoMapCodingServiceImplementation {
   reverse(point: GeoPoint): Promise<Types.Result<GeoMapPlaceDetails[]>>;
 }
 
+export interface GeoMapDirectionResult {
+  start: Types.GeoPoint;
+  end: Types.GeoPoint;
+}
+
+export interface GeoMapDirectionServiceImplementation {
+  /**
+   * @param from The route origin
+   * @param to The route destination
+   * @return The route start- and endpoint of the calculated route.
+   *          This may slightly differ from the given start and endpoint.
+   */
+  paintRoute(
+    from: Types.GeoPoint,
+    to: Types.GeoPoint
+  ): Promise<GeoMapDirectionResult>;
+}
+
 export interface GeoMapPlacesServiceImplementation {
   get(id: string): Promise<Types.Result<GeoMapPlaceDetails>>;
 

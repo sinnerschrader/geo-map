@@ -658,5 +658,27 @@ export const Tests = {
       throw new Error('Expected success from getPlace');
     }
     Util.dump(placeResult.payload);
+  },
+
+  paintGoogleRoute: async () => {
+    const map = await createGoogleMap(
+      {},
+      { zoom: 8, center: { lat: 53.0572754, lng: 11.4263859 } }
+    );
+
+    const result = await map.paintRoute(Constants.S2_HAM, Constants.S2_BER);
+
+    Util.dump(result);
+  },
+
+  paintHereRoute: async () => {
+    const map = await createHereMap(
+      {},
+      { zoom: 8, center: { lat: 53.0572754, lng: 11.4263859 } }
+    );
+
+    const result = await map.paintRoute(Constants.S2_HAM, Constants.S2_BER);
+
+    Util.dump(result);
   }
 };

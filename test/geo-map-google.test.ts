@@ -3,6 +3,7 @@ import * as TestEntry from '../src/test/integration-tests';
 import * as Types from '../src/types';
 import * as Util from '../src/test/util';
 import * as Constants from '../src/test/constants';
+import { GeoMapDirectionResult } from '../src/types';
 
 beforeAll(async () => {
   if (!Fs.existsSync('./screenshots')) {
@@ -236,4 +237,40 @@ test('getPlace works as expected', async () => {
       name: expect.stringContaining('Hamburg')
     })
   );
+});
+
+test('paint route on google map', async () => {
+  await page.goto(`http://localhost:1338/?integration=true`);
+  await page.evaluate(() => TestEntry.Tests.paintGoogleRoute());
+
+  const data: GeoMapDirectionResult = JSON.parse(
+    String(
+      await page.evaluate(
+        () => document.querySelector('[data-dump="data-dump"]').textContent
+      )
+    )
+  );
+
+  expect(data.start.lat).toBeCloseTo(Constants.S2_HAM.lat);
+  expect(data.start.lng).toBeCloseTo(Constants.S2_HAM.lng);
+  expect(data.end.lat).toBeCloseTo(Constants.S2_BER.lat);
+  expect(data.end.lng).toBeCloseTo(Constants.S2_BER.lng);
+});
+
+test('paint route on here map', async () => {
+  await page.goto(`http://localhost:1338/?integration=true`);
+  await page.evaluate(() => TestEntry.Tests.paintHereRoute());
+
+  const data: GeoMapDirectionResult = JSON.parse(
+    String(
+      await page.evaluate(
+        () => document.querySelector('[data-dump="data-dump"]').textContent
+      )
+    )
+  );
+
+  expect(data.start.lat).toBeCloseTo(Constants.S2_HAM.lat);
+  expect(data.start.lng).toBeCloseTo(Constants.S2_HAM.lng);
+  expect(data.end.lat).toBeCloseTo(Constants.S2_BER.lat);
+  expect(data.end.lng).toBeCloseTo(Constants.S2_BER.lng);
 });

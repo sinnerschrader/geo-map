@@ -7,6 +7,7 @@ import * as Types from './types';
 import { ServerSideGeoMap } from './server-side-geo-map';
 import { GeoMapCodingService } from './geo-map-coding-service';
 import { GeoMapPlacesService } from './geo-map-places-service';
+import { GeoMapDirectionService } from './geo-map-direction-service';
 
 export class GeoMap {
   public readonly provider: Types.GeoMapProvider;
@@ -208,6 +209,29 @@ export class GeoMap {
     return googleService;
   }
 
+  private async getDirectionService(): Promise<GeoMapDirectionService> {
+    await this.phase(Types.GeoMapPhase.Loaded);
+
+    if (this.provider === Types.GeoMapProvider.Here) {
+      const hereService = GeoMapDirectionService.create({
+        type: this.provider as Types.GeoMapProvider.Here,
+        api: (this.implementation as GeoMapHere).api,
+        platform: (this.implementation as GeoMapHere).platform,
+        map: this.implementation
+      });
+
+      return hereService;
+    }
+
+    const googleService = GeoMapDirectionService.create({
+      type: this.provider as Types.GeoMapProvider.Google,
+      api: (this.implementation as GeoMapGoogle).api,
+      map: this.implementation
+    });
+
+    return googleService;
+  }
+
   public async getPlace(
     id: string
   ): Promise<Types.Result<Types.GeoMapPlaceDetails>> {
@@ -241,5 +265,13 @@ export class GeoMap {
   ): Promise<number> {
     const service = await this.getPlacesService();
     return service.distanceBetween(from, to, radius);
+  }
+
+  public async paintRoute(
+    from: Types.GeoPoint,
+    to: Types.GeoPoint
+  ): Promise<Types.GeoMapDirectionResult> {
+    const service = await this.getDirectionService();
+    return service.paintRoute(from, to);
   }
 }
