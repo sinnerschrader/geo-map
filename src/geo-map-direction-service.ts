@@ -64,4 +64,8 @@ export class GeoMapDirectionService {
   ): Promise<Types.GeoMapDirectionResult> {
     return this.implementation.paintRoute(from, to);
   }
+
+  public async clear(): Promise<void> {
+    this.implementation.clear();
+  }
 }

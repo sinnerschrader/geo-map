@@ -7,6 +7,8 @@ export class GeoMapDirectionServiceHere
   private api: Types.HereApi;
   private mapImplementation: GeoMapHere;
 
+  private lines: H.map.Polyline[] = [];
+
   public static create(init: {
     api: Types.HereApi;
     platform: H.service.Platform;
@@ -67,6 +69,7 @@ export class GeoMapDirectionServiceHere
               }
             }
           );
+          this.lines.push(lineBackground);
 
           const lineForegroud = new H.map.Polyline(new H.geo.LineString(path), {
             style: {
@@ -74,6 +77,7 @@ export class GeoMapDirectionServiceHere
               strokeColor: 'rgb(44, 72, 161)'
             }
           });
+          this.lines.push(lineForegroud);
 
           this.mapImplementation.map.addObject(lineBackground);
           this.mapImplementation.map.addObject(lineForegroud);
@@ -94,5 +98,12 @@ export class GeoMapDirectionServiceHere
         }
       );
     });
+  }
+
+  public async clear(): Promise<void> {
+    while (this.lines.length) {
+      const line = this.lines.pop();
+      this.mapImplementation.map.removeObject(line);
+    }
   }
 }

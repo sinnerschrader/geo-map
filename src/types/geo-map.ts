@@ -396,6 +396,11 @@ export interface GeoMapDirectionServiceImplementation {
     from: Types.GeoPoint,
     to: Types.GeoPoint
   ): Promise<GeoMapDirectionResult>;
+
+  /**
+   * Removes all drawings from the map
+   */
+  clear(): Promise<void>;
 }
 
 export interface GeoMapPlacesServiceImplementation {

@@ -7,6 +7,8 @@ export class GeoMapDirectionServiceGoogle
   private readonly implementation: GeoMapGoogle;
   private readonly api: Types.GoogleApi;
 
+  private lines: google.maps.Polyline[] = [];
+
   public static create(init: {
     api: Types.GoogleApi;
     map: Types.GeoMapImplementation;
@@ -49,6 +51,7 @@ export class GeoMapDirectionServiceGoogle
           strokeOpacity: 1.0,
           strokeWeight: 8
         });
+        this.lines.push(lineBackground);
 
         const lineForegroud = new google.maps.Polyline({
           path,
@@ -56,6 +59,7 @@ export class GeoMapDirectionServiceGoogle
           strokeOpacity: 1.0,
           strokeWeight: 5
         });
+        this.lines.push(lineForegroud);
 
         lineBackground.setMap(this.implementation.map);
         lineForegroud.setMap(this.implementation.map);
@@ -66,5 +70,12 @@ export class GeoMapDirectionServiceGoogle
         });
       });
     });
+  }
+
+  public async clear(): Promise<void> {
+    while (this.lines.length) {
+      const line = this.lines.pop();
+      line.setMap(null);
+    }
   }
 }

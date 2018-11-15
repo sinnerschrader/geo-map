@@ -274,4 +274,9 @@ export class GeoMap {
     const service = await this.getDirectionService();
     return service.paintRoute(from, to);
   }
+
+  public async clearDrawings(): Promise<void> {
+    const service = await this.getDirectionService();
+    service.clear();
+  }
 }
