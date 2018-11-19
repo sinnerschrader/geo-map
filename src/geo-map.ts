@@ -17,6 +17,11 @@ export class GeoMap {
    */
   private implementation: Types.GeoMapImplementation;
 
+  /**
+   * @internal
+   */
+  private directionService: GeoMapDirectionService;
+
   public static create(init: {
     config: Types.GeoMapConfig;
     context?: Types.GeoMapContext;
@@ -190,7 +195,6 @@ export class GeoMap {
   private async getPlacesService(): Promise<GeoMapPlacesService> {
     await this.phase(Types.GeoMapPhase.Loaded);
 
-    // TODO: Move out of here when splitting GeoMap into Geo -> Map, Geo -> Code, Geo -> ...
     if (this.provider === Types.GeoMapProvider.Here) {
       const hereService = GeoMapPlacesService.create({
         type: this.provider as Types.GeoMapProvider.Here,
@@ -210,26 +214,30 @@ export class GeoMap {
   }
 
   private async getDirectionService(): Promise<GeoMapDirectionService> {
+    if (this.directionService) {
+      return this.directionService;
+    }
+
     await this.phase(Types.GeoMapPhase.Loaded);
 
     if (this.provider === Types.GeoMapProvider.Here) {
-      const hereService = GeoMapDirectionService.create({
+      this.directionService = GeoMapDirectionService.create({
         type: this.provider as Types.GeoMapProvider.Here,
         api: (this.implementation as GeoMapHere).api,
         platform: (this.implementation as GeoMapHere).platform,
         map: this.implementation
       });
 
-      return hereService;
+      return this.directionService;
     }
 
-    const googleService = GeoMapDirectionService.create({
+    this.directionService = GeoMapDirectionService.create({
       type: this.provider as Types.GeoMapProvider.Google,
       api: (this.implementation as GeoMapGoogle).api,
       map: this.implementation
     });
 
-    return googleService;
+    return this.directionService;
   }
 
   public async getPlace(
