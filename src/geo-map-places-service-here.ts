@@ -246,6 +246,7 @@ export class GeoMapPlacesServiceHere
 
           if (typeof results === 'undefined' || !Array.isArray(results.items)) {
             resolve(Result.createSuccess([]));
+            return;
           }
 
           const locationPromises = Promise.all(
