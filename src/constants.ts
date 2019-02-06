@@ -3,8 +3,7 @@
  */
 export const GOOGLE_MAP_CLIENT_ID: string = undefined;
 export const GOOGLE_MAP_CHANNEL: string = undefined;
-export const GOOGLE_MAP_API = 'AIzaSyCqJYLtA78W6xPYNItYeJYsq1Oh9f2wng4';
-
+export const GOOGLE_MAP_API = 'AIzaSyClZGdULfHFpEFI5XhwVBRk3olbh88oagQ';
 export const HERE_APP_CODE = 'Dcyf26dF0xXNDjh0H3_Uvg';
 export const HERE_APP_ID = 'f8zzV53vmxqQcljXRJtU';
 // Degrees latitude per meter, used for (rough!) approximation of
