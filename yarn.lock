@@ -217,10 +217,10 @@
   resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.30.16.tgz#3264d5ef7c3a92fab2a9f00e09e3247866ff3532"
   integrity sha512-6OZ64ahLzYfzuSr71y4jAHZXiwxjvvEM2bfF2tzjIc9KUZVbO30SkYa8WewTsR8aM5BFz/uBiNlZ14eRLXYS0g==
 
-"@types/heremaps@3.0.12":
-  version "3.0.12"
-  resolved "https://registry.yarnpkg.com/@types/heremaps/-/heremaps-3.0.12.tgz#a7e8928f6eee0c83d0efff08add8dc92c242e29d"
-  integrity sha512-9ze8JhF2St2/dwOWcyNVSh1blbzwL27HYoLlWYqfDNZPrQ2XbwJA/dXMO2QA4lt3UJW200aKh6pwkbBYdOyBKg==
+"@types/heremaps@3.0.13":
+  version "3.0.13"
+  resolved "https://registry.yarnpkg.com/@types/heremaps/-/heremaps-3.0.13.tgz#f7f8c3eda145f3055689ee9b28660a28ccc3ca02"
+  integrity sha512-t7vcBfARVpWcTphDmQYWXOAcuV1zkjGcE1vId4RAPT7bcHVFFWNVSUGSr0ZXduSm3CcI5/YFIKXWC9KQJDE3NQ==
 
 "@types/jest-environment-puppeteer@2.2.1":
   version "2.2.1"
