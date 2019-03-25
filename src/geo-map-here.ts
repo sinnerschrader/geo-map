@@ -80,7 +80,10 @@ export class GeoMapHere implements Types.GeoMapImplementation {
       {
         type: this.mapType,
         layer: this.layer,
-        language: this.config.language
+        language: this.config.language,
+        ppi: this.config.ppi,
+        style: this.config.style,
+        minZoom: this.config.minZoom
       },
       {
         platform: this.platform,
@@ -90,8 +93,9 @@ export class GeoMapHere implements Types.GeoMapImplementation {
 
     this.map = new api.Map(el, layer, {
       center: mountInit.center,
-      zoom: mountInit.zoom
-    });
+      zoom: mountInit.zoom,
+      noWrap: Boolean(this.config.noWrap)
+    } as H.Map.Options);
 
     this.phases.resolve(Types.GeoMapPhase.Mounted);
     this.phases.resolve(Types.GeoMapPhase.Layouting);
@@ -289,18 +293,40 @@ function hereMapChanged(map: H.Map): Promise<void> {
 }
 
 function getHereMapLayer(
-  config: { language?: string; type: Types.GeoMapType; layer: Types.GeoLayer },
+  config: {
+    language?: string;
+    type: Types.GeoMapType;
+    layer: Types.GeoLayer;
+    ppi?: number;
+    style?: Types.HereMapStyle;
+    minZoom?: number;
+  },
   context: { platform: H.service.Platform; window: Window }
 ): H.map.layer.TileLayer {
+  const ppi = config.ppi ? config.ppi : getOptimalHerePixelDensity();
   const defaultLayers = context.platform.createDefaultLayers({
-    tileSize: 256,
+    ppi,
+    tileSize: ppi > 72 ? 512 : 256,
     lg: isoToHereLanguage(config.language || 'en'),
-    ppi: getOptimalHerePixelDensity(),
-    pois: true
+    pois: true,
+    style: config.style
   });
 
-  const key = getHereMapKey(config.layer);
+  if (config.minZoom) {
+    ['map', 'traffic', 'transit'].forEach(
+      (mapType: keyof H.service.MapType) => {
+        if (defaultLayers.satellite[mapType]) {
+          defaultLayers.satellite[mapType].setMin(config.minZoom);
+        }
 
+        if (defaultLayers.normal[mapType]) {
+          defaultLayers.normal[mapType].setMin(config.minZoom);
+        }
+      }
+    );
+  }
+
+  const key = getHereMapKey(config.layer);
   switch (config.type) {
     case Types.GeoMapType.Hybrid:
       return defaultLayers.satellite[key] || defaultLayers.satellite.map;
@@ -337,7 +363,7 @@ function getOptimalHerePixelDensity(): number {
     k => Types.HerePixelDensity[k as any]
   ) as any[]) as number[];
   const devicePpi = (window.devicePixelRatio || 1) * 72;
-  return scale.find(ppi => ppi > devicePpi) || scale[scale.length - 1];
+  return scale.find(ppi => ppi >= devicePpi) || 72;
 }
 
 function geoToHereEvent(input: Types.GeoEvent): string | undefined {

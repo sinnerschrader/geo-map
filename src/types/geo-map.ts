@@ -47,6 +47,20 @@ export interface LoadHereMapConfig {
   provider: GeoMapProvider.Here;
   region?: string;
   viewport?: GeoMapViewport;
+  style?: HereMapStyle;
+  ppi?: HerePixelDensity;
+  noWrap?: boolean;
+  minZoom?: number;
+}
+
+export enum HereMapStyle {
+  DEFAULT = 'default',
+  ALPS = 'alps',
+  FLEET = 'fleet',
+  WINGS = 'wings',
+  DREAMWORKS = 'dreamworks',
+  FLAME = 'flame',
+  MINI = 'mini'
 }
 
 export interface GeoMapViewport {

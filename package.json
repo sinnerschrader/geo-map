@@ -69,7 +69,7 @@
   },
   "dependencies": {
     "@types/googlemaps": "3.30.16",
-    "@types/heremaps": "3.0.12",
+    "@types/heremaps": "3.0.13",
     "@types/query-string": "6.2.0",
     "@types/uuid": "3.4.4",
     "query-string": "^6.1.0",
