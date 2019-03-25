@@ -40,8 +40,12 @@ export class GeoMapDirectionServiceGoogle
       directionsService.route(config, results => {
         const [route] = results.routes;
 
-        if (!route || !Array.isArray(route.legs)) {
-          return reject(new Error(`No route or missing route legs: ${route}`));
+        if (!route) {
+          return reject(new Error(`No route: ${results}`));
+        }
+
+        if (!Array.isArray(route.legs)) {
+          return reject(new Error(`The found route has no legs: ${route}`));
         }
 
         const path = route.legs.reduce(
