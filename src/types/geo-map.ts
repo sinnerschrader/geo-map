@@ -34,6 +34,7 @@ export interface LoadGoogleMapConfigBase<T = undefined> {
   provider: GeoMapProvider.Google;
   viewport?: GeoMapViewport;
   auth: T;
+  minZoom?: number;
 }
 
 export interface LoadGoogleMapConfigDefault extends LoadGoogleMapConfigBase {

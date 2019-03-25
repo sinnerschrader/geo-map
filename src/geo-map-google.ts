@@ -63,6 +63,7 @@ export class GeoMapGoogle implements Types.GeoMapImplementation {
     this.map = new this.api.Map(el, {
       center: mountInit.center,
       zoom: mountInit.zoom || 1,
+      minZoom: this.config.minZoom,
       mapTypeId: typeToGoogleMapTypeId(
         mountInit.type || Types.GeoMapType.Roadmap,
         this.api
