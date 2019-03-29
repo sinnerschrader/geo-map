@@ -91,6 +91,23 @@ export class GeoMarkerHere implements Types.GeoMarkerImplementation {
     };
   }
 
+  public bindEvent(
+    event: Types.GeoEvent,
+    handler: () => void
+  ): Types.GeoEventHandlerDisposer {
+    const hereEventName = event === Types.GeoEvent.Click ? 'tap' : event;
+    const hereHandler = (event: H.util.Event) => {
+      event.stopPropagation();
+      event.preventDefault();
+
+      handler();
+    };
+
+    this.marker.addEventListener(hereEventName, hereHandler);
+
+    return () => this.marker.removeEventListener(hereEventName, hereHandler);
+  }
+
   public async remove(): Promise<void> {
     this.implementation.map.removeObject(this.marker);
     this.implementation.markers.splice(

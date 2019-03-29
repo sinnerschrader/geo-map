@@ -74,6 +74,15 @@ export class GeoMarkerGoogle implements Types.GeoMarkerImplementation {
     };
   }
 
+  public bindEvent(
+    event: Types.GeoEvent,
+    handler: () => void
+  ): Types.GeoEventHandlerDisposer {
+    const listener = this.marker.addListener(event, () => handler());
+
+    return () => listener.remove();
+  }
+
   public async remove(): Promise<void> {
     this.marker.setMap(null);
     this.implementation.markers.splice(

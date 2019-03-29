@@ -45,6 +45,13 @@ export class GeoMarker {
     return this.implementation.setPosition(point);
   }
 
+  public bindEvent(
+    event: Types.GeoEvent.Click,
+    handler: (marker: this) => void
+  ): Types.GeoEventHandlerDisposer {
+    return this.implementation.bindEvent(event, () => handler(this));
+  }
+
   public async remove(): Promise<void> {
     return this.implementation.remove();
   }

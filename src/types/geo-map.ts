@@ -215,6 +215,7 @@ export interface GeoMarkerImplementation {
   setIcon(svg: string): Promise<Types.Result<void>>;
   getPosition(): Promise<Types.GeoPoint>;
   setPosition(position: GeoPoint): Promise<void>;
+  bindEvent(event: GeoEvent, handler: () => void): GeoEventHandlerDisposer;
   remove(): Promise<void>;
 }
 
@@ -375,6 +376,8 @@ export enum GeoEvent {
   Changed = 'changed',
   Loaded = 'tilesloaded'
 }
+
+export type GeoEventHandlerDisposer = () => void;
 
 // tslint:disable-next-line:no-empty-interface
 export type GeoEventPayload = GeoClickPayload;
