@@ -30,17 +30,10 @@ export class GeoMarkerGoogle implements Types.GeoMarkerImplementation {
       this.anchor = config.anchor;
     }
 
-    const iconAnchor = getAnchor(this.anchor, config.icon);
-
     this.marker = new this.implementation.api.Marker({
       position: config.position,
       map: this.implementation.map,
-      icon: {
-        anchor: iconAnchor
-          ? new this.implementation.api.Point(iconAnchor.x, iconAnchor.y)
-          : undefined,
-        url: `data:image/svg+xml;utf-8,${encodeURIComponent(config.icon)}`
-      }
+      icon: this.getIconConfig()
     });
 
     this.implementation.markers.push(this);
@@ -54,10 +47,7 @@ export class GeoMarkerGoogle implements Types.GeoMarkerImplementation {
   public async setIcon(icon: string): Promise<Types.Result<void>> {
     this.iconMarkup = icon;
 
-    this.marker.setIcon({
-      anchor: new this.implementation.api.Point(16, 16),
-      url: `data:image/svg+xml;utf-8,${encodeURIComponent(icon)}`
-    });
+    this.marker.setIcon(this.getIconConfig());
 
     return Result.createSuccess();
   }
@@ -90,6 +80,64 @@ export class GeoMarkerGoogle implements Types.GeoMarkerImplementation {
     );
     this.implementation.fire(Types.GeoEvent.Changed);
   }
+
+  private getIconConfig() {
+    const size = this.getIconSize();
+    const config = {
+      url: `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(
+        this.iconMarkup
+      )}`
+    };
+
+    if (size) {
+      Object.assign(config, {
+        anchor: this.getAnchorPoint(size),
+        scaledSize: new this.implementation.api.Size(size.width, size.height)
+      });
+    }
+
+    return config;
+  }
+
+  private getIconSize(): void | { width: number; height: number } {
+    const dom = new DOMParser().parseFromString(
+      this.iconMarkup,
+      'application/xml'
+    );
+    let height: number = NaN;
+    let width: number = NaN;
+
+    if (!dom.documentElement || !dom.documentElement.attributes) {
+      return;
+    }
+
+    Array.from(dom.documentElement.attributes).forEach(attr => {
+      switch (attr.name.toLowerCase()) {
+        case 'height':
+          height = parseInt(attr.value, 10);
+          break;
+        case 'width':
+          width = parseInt(attr.value, 10);
+          break;
+      }
+    });
+
+    if (!isNaN(height) && !isNaN(width)) {
+      return { height, width };
+    }
+  }
+
+  private getAnchorPoint(size: {
+    width: number;
+    height: number;
+  }): void | google.maps.Point {
+    if (typeof window !== 'undefined') {
+      return new this.implementation.api.Point(
+        size.width * getOrientationRatio(this.anchor.horizontal),
+        size.height * getOrientationRatio(this.anchor.vertical)
+      );
+    }
+  }
 }
 
 function getOrientationRatio(orientation: Types.GeoMarkerOrientation): number {
@@ -102,28 +150,4 @@ function getOrientationRatio(orientation: Types.GeoMarkerOrientation): number {
     default:
       return 0.5;
   }
-}
-
-function getAnchor(
-  anchor: Types.GeoMarkerAnchor,
-  icon: string
-): { x: number; y: number } | undefined {
-  if (typeof window === 'undefined') {
-    return;
-  }
-
-  const wRatio = getOrientationRatio(anchor.horizontal);
-  const hRatio = getOrientationRatio(anchor.vertical);
-  const parser = new DOMParser();
-
-  const doc = parser.parseFromString(icon, 'image/svg+xml');
-  const rootElement = doc.documentElement;
-
-  if (!rootElement) {
-    return;
-  }
-
-  const width = parseInt(rootElement.getAttribute('width')!, 10);
-  const height = parseInt(rootElement.getAttribute('height')!, 10);
-  return { x: wRatio * width, y: hRatio * height };
 }

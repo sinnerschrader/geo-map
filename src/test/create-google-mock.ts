@@ -88,6 +88,10 @@ export const createGoogleMock = (): any => {
     }
   }
 
+  class GoogleMockSize {
+    /** */
+  }
+
   class GoogleMockMap {
     private el: HTMLElement;
 
@@ -182,6 +186,7 @@ export const createGoogleMock = (): any => {
     TransitLayer: GoogleMockLayer,
     TrafficLayer: GoogleMockLayer,
     Point: GoogleMockPoint,
-    Marker: GoogleMockMarker
+    Marker: GoogleMockMarker,
+    Size: GoogleMockSize
   };
 };
