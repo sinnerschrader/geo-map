@@ -42,7 +42,7 @@
     "@types/jest-environment-puppeteer": "2.2.1",
     "@types/jsdom": "11.12.0",
     "@types/node": "10.12.21",
-    "@types/puppeteer": "1.12.3",
+    "@types/puppeteer": "1.12.4",
     "execa": "1.0.0",
     "express": "4.16.4",
     "husky": "2.2.0",
