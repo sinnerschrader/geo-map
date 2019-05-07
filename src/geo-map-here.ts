@@ -83,7 +83,8 @@ export class GeoMapHere implements Types.GeoMapImplementation {
         language: this.config.language,
         ppi: this.config.ppi,
         style: this.config.style,
-        minZoom: this.config.minZoom
+        minZoom: this.config.minZoom,
+        maxZoom: this.config.maxZoom
       },
       {
         platform: this.platform,
@@ -168,7 +169,11 @@ export class GeoMapHere implements Types.GeoMapImplementation {
         {
           type: this.mapType,
           layer: this.layer,
-          language: this.config.language
+          language: this.config.language,
+          ppi: this.config.ppi,
+          style: this.config.style,
+          minZoom: this.config.minZoom,
+          maxZoom: this.config.maxZoom
         },
         {
           platform: this.platform,
@@ -208,6 +213,13 @@ export class GeoMapHere implements Types.GeoMapImplementation {
   }
 
   public async setZoom(factor: number): Promise<void> {
+    if (this.config.maxZoom && factor > this.config.maxZoom) {
+      return;
+    }
+    if (this.config.minZoom && factor < this.config.minZoom) {
+      return;
+    }
+
     const previousFactor = await this.getZoom();
 
     if (previousFactor === factor) {
@@ -304,6 +316,7 @@ function getHereMapLayer(
     ppi?: number;
     style?: Types.HereMapStyle;
     minZoom?: number;
+    maxZoom?: number;
   },
   context: { platform: H.service.Platform; window: Window }
 ): H.map.layer.TileLayer {
@@ -316,28 +329,27 @@ function getHereMapLayer(
     style: config.style
   });
 
-  if (config.minZoom) {
-    ['map', 'traffic', 'transit'].forEach(
-      (mapType: keyof H.service.MapType) => {
-        if (defaultLayers.satellite[mapType]) {
-          defaultLayers.satellite[mapType].setMin(config.minZoom);
-        }
-
-        if (defaultLayers.normal[mapType]) {
-          defaultLayers.normal[mapType].setMin(config.minZoom);
-        }
-      }
-    );
-  }
-
   const key = getHereMapKey(config.layer);
+  let layer;
+
   switch (config.type) {
     case Types.GeoMapType.Hybrid:
-      return defaultLayers.satellite[key] || defaultLayers.satellite.map;
+      layer = defaultLayers.satellite[key] || defaultLayers.satellite.map;
+      break;
     case Types.GeoMapType.Roadmap:
     default:
-      return defaultLayers.normal[key] || defaultLayers.normal.map;
+      layer = defaultLayers.normal[key] || defaultLayers.normal.map;
+      break;
   }
+
+  if (config.minZoom) {
+    layer.setMin(config.minZoom);
+  }
+  if (config.maxZoom) {
+    layer.setMax(config.maxZoom);
+  }
+
+  return layer;
 }
 
 function getHereMapKey(layer: Types.GeoLayer): 'map' | 'traffic' | 'transit' {

@@ -35,6 +35,7 @@ export interface LoadGoogleMapConfigBase<T = undefined> {
   viewport?: GeoMapViewport;
   auth: T;
   minZoom?: number;
+  maxZoom?: number;
 }
 
 export interface LoadGoogleMapConfigDefault extends LoadGoogleMapConfigBase {
@@ -52,6 +53,7 @@ export interface LoadHereMapConfig {
   ppi?: HerePixelDensity;
   noWrap?: boolean;
   minZoom?: number;
+  maxZoom?: number;
 }
 
 export enum HereMapStyle {

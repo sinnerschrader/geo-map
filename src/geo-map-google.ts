@@ -64,6 +64,7 @@ export class GeoMapGoogle implements Types.GeoMapImplementation {
       center: mountInit.center,
       zoom: mountInit.zoom || 1,
       minZoom: this.config.minZoom,
+      maxZoom: this.config.maxZoom,
       mapTypeId: typeToGoogleMapTypeId(
         mountInit.type || Types.GeoMapType.Roadmap,
         this.api
@@ -215,6 +216,13 @@ export class GeoMapGoogle implements Types.GeoMapImplementation {
   }
 
   public async setZoom(factor: number): Promise<void> {
+    if (this.config.maxZoom && factor > this.config.maxZoom) {
+      return;
+    }
+    if (this.config.minZoom && factor < this.config.minZoom) {
+      return;
+    }
+
     await this.phase(Types.GeoMapPhase.Mounted);
     this.map.setZoom(factor);
   }
