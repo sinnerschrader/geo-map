@@ -44,7 +44,7 @@
     "@types/node": "10.12.21",
     "@types/puppeteer": "1.12.4",
     "execa": "1.0.0",
-    "express": "4.16.4",
+    "express": "4.17.0",
     "husky": "2.3.0",
     "jest": "24.8.0",
     "jest-canvas-mock": "2.1.0",
