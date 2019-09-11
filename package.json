@@ -69,7 +69,7 @@
     "webpack-dev-server": "3.5.1"
   },
   "dependencies": {
-    "@types/googlemaps": "3.36.2",
+    "@types/googlemaps": "3.37.6",
     "@types/heremaps": "3.0.15",
     "@types/query-string": "6.2.0",
     "@types/uuid": "3.4.4",
