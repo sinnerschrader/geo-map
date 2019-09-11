@@ -44,7 +44,7 @@
     "@types/node": "10.12.21",
     "@types/puppeteer": "1.12.4",
     "canvas": "2.6.0",
-    "execa": "1.0.0",
+    "execa": "2.0.4",
     "express": "4.17.1",
     "husky": "2.3.0",
     "jest": "24.8.0",
