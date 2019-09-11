@@ -404,10 +404,10 @@
   resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.36.2.tgz#07d7c73eaeb010faeb9e6636a5f50cf2515ac2cc"
   integrity sha512-7rF/VXWgd8LYg3HqmSFQYu+NGTzFauaW3oic1f8WjCWxOYIiyuN5gd7hrfhVMcxKRZuIyVcbuI8ty5P+3qNQ5w==
 
-"@types/heremaps@3.0.13":
-  version "3.0.13"
-  resolved "https://registry.yarnpkg.com/@types/heremaps/-/heremaps-3.0.13.tgz#f7f8c3eda145f3055689ee9b28660a28ccc3ca02"
-  integrity sha512-t7vcBfARVpWcTphDmQYWXOAcuV1zkjGcE1vId4RAPT7bcHVFFWNVSUGSr0ZXduSm3CcI5/YFIKXWC9KQJDE3NQ==
+"@types/heremaps@3.0.15":
+  version "3.0.15"
+  resolved "https://registry.yarnpkg.com/@types/heremaps/-/heremaps-3.0.15.tgz#f1d1d0cc1dee14b8fbd90c59fc26c758354d6e4c"
+  integrity sha512-CejtUwzAimVi5M0o/clXbmnOESJAzf6U9tSo2nW/HoK2uNvcosGL09pB3vdWZNteDDLGCgpdFv3yevtsZ5UAkg==
 
 "@types/istanbul-lib-coverage@*":
   version "2.0.1"
