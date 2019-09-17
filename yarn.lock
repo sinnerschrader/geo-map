@@ -433,10 +433,10 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/googlemaps@3.37.6":
-  version "3.37.6"
-  resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.37.6.tgz#4646e4bd8dcc1beaf522b6e1c2a4228d22e9482f"
-  integrity sha512-ANA1t8sjnLvsxFWVxsbzqj1TTYCwp4j+oOXOiezqCenH2jPwYYhpBSqUzG4A3tpuFW1bL/xhAxhN8DRwDFg2Mw==
+"@types/googlemaps@3.37.7":
+  version "3.37.7"
+  resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.37.7.tgz#224cc94fecfc6cb1be95b7f03ec50218ef8a5deb"
+  integrity sha512-a+mvO0PHHBmvojRAKEo81MYnG8JlZScDoguVHqMi/myfrJIF1KmcSNVyMi6Y5BG/skgLpFJM37nl+hwHNGb3ig==
 
 "@types/heremaps@3.0.15":
   version "3.0.15"
