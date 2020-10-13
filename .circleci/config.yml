@@ -34,4 +34,4 @@ jobs:
 
       # run tests!
       - run: yarn test --runInBand
-      - run: yarn test:integration --runInBand
+      # - run: yarn test:integration --runInBand
