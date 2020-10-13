@@ -21,6 +21,7 @@ export enum GoogleMapAuthType {
 
 export interface GoogleMapApiKeyAuth {
   apiKey: string;
+  channel?: string;
 }
 
 export interface GoogleMapClientIdAuth {

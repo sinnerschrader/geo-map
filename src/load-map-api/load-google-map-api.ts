@@ -33,6 +33,7 @@ export function loadGoogleMapApi(
       )
     ) {
       params.key = config.auth.apiKey;
+      params.channel = config.auth.channel || null;
     } else if (
       isAuthType<Types.GoogleMapClientIdAuth>(
         config.auth,
