@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.14.0](https://github.com/marionebl/geo-map/compare/v1.13.1...v1.14.0) (2020-10-14)
+
+
+### Features
+
+* Add support for channel in ApiKey auth type ([d281fa1](https://github.com/marionebl/geo-map/commit/d281fa187e2aa0c5975ffc923ee899cd2d58c27f))
+
+
+### Bug Fixes
+
+* add missing dependencies for node-canvas ([ec1b793](https://github.com/marionebl/geo-map/commit/ec1b793242e4a0a4b8c4117874e891dcab6ef693))
+* Correct express type version ([28bf3b4](https://github.com/marionebl/geo-map/commit/28bf3b43fe0f6fd0468edc50c8b99531700034ca))
+* update dependency @types/googlemaps to v3.37.6 ([#233](https://github.com/marionebl/geo-map/issues/233)) ([06778f5](https://github.com/marionebl/geo-map/commit/06778f50cb01125384f8d0cd2be0733a84aa7dea))
+* update dependency @types/googlemaps to v3.37.7 ([#260](https://github.com/marionebl/geo-map/issues/260)) ([0efe498](https://github.com/marionebl/geo-map/commit/0efe498128b0aa85137220cb6912602346d1f027))
+* update dependency @types/heremaps to v3.0.15 ([#246](https://github.com/marionebl/geo-map/issues/246)) ([684c3f9](https://github.com/marionebl/geo-map/commit/684c3f97017db7cae66697866fba8913e2703d1d))
+* update dependency tslib to v1.14.1 ([ac7a1dd](https://github.com/marionebl/geo-map/commit/ac7a1ddc445f7021824d55798e949f81e0a7c11a))
+
 ### [1.13.1](https://github.com/marionebl/geo-map/compare/v1.13.0...v1.13.1) (2019-09-11)
 
 

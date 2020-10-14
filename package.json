@@ -1,6 +1,6 @@
 {
   "name": "geo-map",
-  "version": "1.13.1",
+  "version": "1.14.0",
   "description": "A facade that abstracts over the Google and HERE map JavaScript SDKs",
   "files": [
     "index.js",
