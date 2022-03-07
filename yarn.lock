@@ -493,15 +493,14 @@
   dependencies:
     "@types/jest-diff" "*"
 
-"@types/jsdom@11.12.0":
-  version "11.12.0"
-  resolved "https://registry.yarnpkg.com/@types/jsdom/-/jsdom-11.12.0.tgz#00ddc6f0a1b04c2f5ff6fb23eb59360ca65f12ae"
-  integrity sha512-XHMNZFQ0Ih3A4/NTWAO15+OsQafPKnQCanN0FYGbsTM/EoI5EoEAvvkF51/DQC2BT5low4tomp7k2RLMlriA5Q==
+"@types/jsdom@16.2.14":
+  version "16.2.14"
+  resolved "https://registry.yarnpkg.com/@types/jsdom/-/jsdom-16.2.14.tgz#26fe9da6a8870715b154bb84cd3b2e53433d8720"
+  integrity sha512-6BAy1xXEmMuHeAJ4Fv4yXKwBDTGTOseExKE3OaHiNycdHdZw59KfYzrt0DkDluvwmik1HRt6QS7bImxUmpSy+w==
   dependencies:
-    "@types/events" "*"
     "@types/node" "*"
+    "@types/parse5" "*"
     "@types/tough-cookie" "*"
-    parse5 "^4.0.0"
 
 "@types/mime@*":
   version "2.0.0"
@@ -532,6 +531,11 @@
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@types/normalize-package-data/-/normalize-package-data-2.4.0.tgz#e486d0d97396d79beedd0a6e33f4534ff6b4973e"
   integrity sha512-f5j5b/Gf71L+dbqxIpQ4Z2WlmI/mPJ0fOkGGmFgtb6sAu97EPczzbS3/tJKxmcYDj55OX6ssqwDAWOHIYDRDGA==
+
+"@types/parse5@*":
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/@types/parse5/-/parse5-6.0.3.tgz#705bb349e789efa06f43f128cef51240753424cb"
+  integrity sha512-SuT16Q1K51EAVPz1K29DJ/sXjhSQ0zjvsypYJ6tlwVsRV9jwW5Adq2ch8Dq8kDBCkYnELS7N7VNCSB5nC56t/g==
 
 "@types/puppeteer@*":
   version "1.9.0"
@@ -6084,7 +6088,7 @@ parse-passwd@^1.0.0:
   resolved "https://registry.yarnpkg.com/parse-passwd/-/parse-passwd-1.0.0.tgz#6d5b934a456993b23d37f40a382d6f1666a8e5c6"
   integrity sha1-bVuTSkVpk7I9N/QKOC1vFmao5cY=
 
-parse5@4.0.0, parse5@^4.0.0:
+parse5@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/parse5/-/parse5-4.0.0.tgz#6d78656e3da8d78b4ec0b906f7c08ef1dfe3f608"
   integrity sha512-VrZ7eOd3T1Fk4XWNXMgiGBK/z0MG48BWG2uQNU4I72fkQuKUTZpl+u9k+CxEG0twMVzSmXEEz12z5Fnw1jIQFA==
