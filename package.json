@@ -51,7 +51,7 @@
     "jest-canvas-mock": "2.3.0",
     "jest-cli": "24.9.0",
     "jest-puppeteer": "3.9.0",
-    "jsdom": "11.12.0",
+    "jsdom": "16.5.0",
     "jsdom-simulant": "1.1.2",
     "lint-staged": "9.3.0",
     "png.js": "0.2.1",
